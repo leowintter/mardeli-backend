@@ -17,6 +17,12 @@ const main = async () => {
 
   app.use(express.json());
 
+    app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log("Request Body:", req.body);
+    next(); // Chama o próximo middleware ou rota
+  });
+  
   await MongoClient.connect();
 
   app.get("/users", async (req, res) => {
